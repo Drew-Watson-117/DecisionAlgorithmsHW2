@@ -4,31 +4,6 @@ import numpy as np
 def updateExpected(realValue, expectedValue, N):
     return expectedValue + (1 / N) * (realValue - expectedValue)
 
-def getColors():
-    colors = [
-        'aqua',
-        'aquamarine',
-        'beige',
-        'blue',
-        'blueviolet',
-        'brown',
-        'chartreuse',
-        'cornflowerblue',
-        'crimson',
-        'darkgoldenrod',
-        'darkgreen',
-        'darkmagenta',
-        'darkorange',
-        'cyan',
-        'darkred',
-        'gold',
-        'webgray',
-        'midnightblue',
-        'navyblue',
-        'webpurple',
-        'springgreen',
-        'thistle'
-    ]
 
 def get_probabilities(drift=0):
     

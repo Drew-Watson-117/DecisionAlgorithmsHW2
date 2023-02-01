@@ -10,20 +10,25 @@ def main():
     iterations = 10000
     epsilon = 0.6
 
-    # tArray = [0]*iterations
-    # nMatrix = [[0]*iterations]*len(N)
+    tArray = np.arange(0,iterations)
+    nMatrix = np.matrix([[0]*iterations]*len(N))
     for t in range(iterations):
         probabilities = hf.get_probabilities()
         epsilonGreedy(epsilon,probabilities,Q,N)
-    print(N)
-    print(Q)
-    # plt.title(f"Convergence Rate for epsilon={epsilon}")
-    # plt.xlabel("t (iterations)")
-    # plt.ylabel("Number of times it was selected")
-    # for i in range(len(N)):
-    #     plt.plot(tArray,nMatrix[i], label=f"Arm {i}")
-    # plt.legend()
-    # plt.show()
+        for i in range(len(N)):
+            nMatrix.itemset((i,t),N[i])
+
+    plt.title(f"Convergence Rate for epsilon={epsilon}")
+    plt.xlabel("t (iterations)")
+    plt.ylabel("Number of times it was selected")
+    tArray = tArray.tolist()
+    nMatrix = nMatrix.tolist()
+    print(f"Expected Values for Arms: {Q}")
+    for i in range(len(N)):
+        plt.plot(tArray,nMatrix[i], label=f"Arm {i}")
+    plt.legend()
+    plt.show()
+    
 
 def epsilonGreedy(epsilon,probabilities,Q,N):
     if np.random.random() < epsilon:
@@ -36,7 +41,7 @@ def epsilonGreedy(epsilon,probabilities,Q,N):
     action = probabilities[index]
     # Update chosen action
     N[index] += 1 # Might need to be after updateExpected -- Then get a /0 error
-    Q[index] = hf.updateExpected(action, index, N[index])
+    Q[index] = hf.updateExpected(action, Q[index], N[index])
 
 
  
