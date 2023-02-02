@@ -1,9 +1,21 @@
 import numpy as np
+import matplotlib.pyplot as plt
 
 
 def updateExpected(realValue, expectedValue, N):
-    return expectedValue + (1 / N) * (realValue - expectedValue)
+    return expectedValue + (1 / (N+1)) * (realValue - expectedValue)
 
+def plotMatrix(matrix, array,title):
+    matrix = matrix.tolist()
+    array = array.tolist()
+
+    plt.title(title)
+    plt.xlabel("t (iterations)")
+    plt.ylabel("Number of times it was selected")
+    for i in range(len(matrix)):
+        plt.plot(array,matrix[i], label=f"Arm {i}")
+    plt.legend()
+    plt.show()
 
 def get_probabilities(drift=0):
     
