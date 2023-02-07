@@ -16,18 +16,24 @@ def main():
         else:
             handleThompsonArguments(drift=True)
     elif sys.argv[1] == "-c":
-        ep.epsilonGreedy(0.11023, graph=False)
+        ep.epsilonGreedy(0.01, graph=False)
         thom.thompsonSample(graph=False)
     elif sys.argv[1] == "-c2":
         reset = input("Do you want the Thompson Sampling to reset at t = 3000? (y/n): ")
         if reset == "y" or reset == "Y":
-            ep.epsilonGreedy(0.11023, graph=False, drift=True)
+            ep.epsilonGreedy(0.01, graph=False, drift=True)
             thom.thompsonSample(graph=False, drift=True, reset=True)
         else:
-            ep.epsilonGreedy(0.11023, graph=False, drift=True)
+            ep.epsilonGreedy(0.01, graph=False, drift=True)
             thom.thompsonSample(graph=False, drift=True)
     elif sys.argv[1] == "-o":
-        ep.averageOptimalEpsilon(100,1000)
+        ep.mostOptimalEpsilon(100)
+        ep.mostOptimalEpsilon(100, fastest=False) #Optimize reward
+
+    elif sys.argv[1] == "-o2":
+        ep.mostOptimalEpsilon(100,drift=True)
+        ep.mostOptimalEpsilon(100, drift=True, fastest=False) #Optimize reward
+
     else:
         print("Argument Not Recognized -- Please Try Again")
 
@@ -55,4 +61,7 @@ def handleThompsonArguments(drift,reset=False):
 
  
 if __name__=="__main__":
-    main()
+    if len(sys.argv) != 2:
+        print("Error: Must supply exactly 1 command line argument to the program")
+    else:
+        main()
