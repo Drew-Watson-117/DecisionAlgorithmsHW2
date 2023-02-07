@@ -10,6 +10,9 @@ To run the program, type `python HW2_Watson_Andrew.py`, followed by one of the f
 - "-c2": This argument will do the same as "-c", but for the Part 2 Moving Bandits. 
 - "-o": This argument will find the average optimal epsilon from 0 to 1 in steps of 0.01 with 100 iterations. 
 
+# NOTE: 
+- ** As of right now, my Thompson Sampling Algorithm only converges to the correct arm about 50% of the time. I don't know why. I've tried for almost a week to figure it out, and neither Zarin or I could find the error. I tried to reach out to Dr. Mario 3 times, and Zarin reached out to him a few times too, but he didn't seem to be available to help. **
+
 # Part 1
 
 ## Epsilon-Greedy
@@ -46,7 +49,7 @@ To run the program, type `python HW2_Watson_Andrew.py`, followed by one of the f
     - If the actual result is negative, we failed to get a reward, so beta -= result
 
 ## Comparison: Optimal Epsilon vs Thompson Sampling
-- Thompson Sampling does not always result in the Arm with the highest mean being picked the most
+- Optimal Epsilon Converges faster and usually has a higher average reward. 
 
 
 # Part 2

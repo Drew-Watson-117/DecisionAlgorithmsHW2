@@ -27,7 +27,7 @@ def main():
             ep.epsilonGreedy(0.11023, graph=False, drift=True)
             thom.thompsonSample(graph=False, drift=True)
     elif sys.argv[1] == "-o":
-        ep.averageOptimalEpsilon(100,100)
+        ep.averageOptimalEpsilon(100,1000)
     else:
         print("Argument Not Recognized -- Please Try Again")
 
@@ -50,24 +50,7 @@ def handleThompsonArguments(drift,reset=False):
         thom.thompsonSample(drift=drift,reset=reset)
     else:
         thom.thompsonSample(graph=False,drift=drift,reset=reset)
-
-def testThompsonVailidity():
-    count = 0
-    badArray = []
-    for i in range(100):
-        result = thom.thompsonSample(1000,False)
-        if result != 2 and result != 17:
-            count += 1
-            badArray.append(result)
-
-    print(count)
-    print(badArray)
     
-
-
-    
-
-
 
 
  

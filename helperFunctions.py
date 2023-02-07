@@ -50,3 +50,6 @@ def get_probabilities(drift=0, t=0):
     
     
     return probs
+
+
+

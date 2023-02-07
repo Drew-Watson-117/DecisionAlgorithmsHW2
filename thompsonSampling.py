@@ -8,8 +8,8 @@ def thompsonSample(iterations=10000, graph=True, drift=False, reset=False):
 
     Q = [np.random.beta(1.,1.) for i in range(len(probabilities))] # List of EXPECTED probabilities
     N = [0] * len(probabilities) # Number of times each arm was selected BEFORE timestep t
-    alpha = [1] * iterations
-    beta = [1] * iterations
+    alpha = [1] * len(probabilities)
+    beta = [1] * len(probabilities)
 
     averageReward = 0
 
@@ -33,7 +33,7 @@ def thompsonSample(iterations=10000, graph=True, drift=False, reset=False):
                 nMatrix.itemset((i,t),N[i])
 
     averageReward /= iterations
-    print(f"Thompson Sampling: \n Average Reward: {averageReward}")
+    print(f"Thompson Sampling: \n Average Reward: {averageReward} \n Most Chosen Arm: {np.argmax(N)}")
     if graph:
         hf.plotMatrix(nMatrix,tArray,f"Convergence Rate for Thompson Sampling")
     else:
@@ -41,14 +41,14 @@ def thompsonSample(iterations=10000, graph=True, drift=False, reset=False):
     
 
 def thompsonSampleStep(Q,N,probabilities,alpha,beta, calculateReward=False):
+    Q = [np.random.beta(alpha[i],beta[i]) for i in range(len(Q))]
     index = np.argmax(Q)
     result = probabilities[index]
-    
+
     if result > 0:
         alpha[index] += 1
     else:
         beta[index] += 1
-    Q[index] = np.random.beta(alpha[index],beta[index])
     N[index]+= 1
     if calculateReward:
         return result
